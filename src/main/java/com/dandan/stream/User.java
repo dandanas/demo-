@@ -22,9 +22,9 @@ public class User {
 
     private List<Integer> test;
 
-    public Optional<Integer> getAge() {
-        return Optional.ofNullable(age);
-    }
+//    public Optional<Integer> getAge() {
+//        return Optional.ofNullable(age);
+//    }
 
     public Optional<List<Integer>> getTest(){
         return Optional.ofNullable(test);

@@ -8,19 +8,16 @@ import java.util.Optional;
  * @date：2020/10/28
  * @author：suchao
  */
+@Data
 public class User {
     private Address address;
 
-    public Optional<Address> getAddress() {
-        return Optional.ofNullable(address);
-    }
 
+    @Data
     public class Address {
         private Country country;
 
-        public Optional<Country> getCountry() {
-            return Optional.ofNullable(country);
-        }
+
 
     }
 
