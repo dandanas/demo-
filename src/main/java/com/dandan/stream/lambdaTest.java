@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 /**
  * @date：2020/10/28
@@ -14,8 +13,8 @@ import java.util.function.Predicate;
  * java 内置的四大函数式接口
  *
  * 消费型接口 Consumer<T> void accept (T t)
- * 供给型接口 Supplier<> T get() //TODO
- * 函数型接口 Function<T,R> R apply(T t) //TODO
+ * 供给型接口 Supplier<T> T get()
+ * 函数型接口 Function<T,R> R apply(T t)
  * 断定型接口 Predicate<T> boolean test(T t)
  */
 public class lambdaTest {
@@ -73,6 +72,37 @@ public class lambdaTest {
         List<String> filterString = filterString(list, s -> s.contains("1"));
 
         System.out.println(filterString);
+
+    }
+
+    //构造器引用
+    @Test
+    public void test5(){
+
+        //lambda表达式实现
+        Supplier<User> supplier = () -> new User();
+        User user = supplier.get();
+
+        //构造器引用
+        Supplier<User> supplier1 = User::new;
+    }
+
+    //数组引用
+    @Test
+    public void test6(){
+
+        //lambda表达式实现
+        Function<Integer,String[]> function = length -> new String[length];
+
+        String[] apply = function.apply(10);
+
+        System.out.println(Arrays.toString(apply));
+
+        //数组引用
+        Function<Integer,String[]> function1 =String[] :: new;
+        String[] apply1 = function.apply(5);
+
+        System.out.println(Arrays.toString(apply1));
 
     }
 
