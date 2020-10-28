@@ -59,11 +59,11 @@ public class StreamTest {
 
         users.add(new User("suchao",3,list4));
         users.add(new User("suchao2",3,list4));
-        List<List<Integer>> collect1 = users.stream().map(user -> user.getTest()).collect(Collectors.toList());
-        doPrint(collect1);
+      //  List<List<Integer>> collect1 = users.stream().map(user -> user.getTest()).collect(Collectors.toList());
+      //  doPrint(collect1);
 
         //平铺返回
-        List<Integer> a = users.stream().flatMap(user -> user.getTest().stream()).collect(Collectors.toList());
+      //  List<Integer> a = users.stream().flatMap(user -> user.getTest().stream()).collect(Collectors.toList());
        // doPrint(a);
 
         HashMap<Integer, String> map = new HashMap<>();
