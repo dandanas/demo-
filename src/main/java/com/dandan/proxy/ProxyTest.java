@@ -30,6 +30,12 @@ class SuperMan implements Human{
     }
 }
 
+class HumanUtil{
+    public void method1(){
+        System.out.println("通用方法1");
+    }
+}
+
 /**
  * 如何根据被加载到内存中的被代理类，动态创建一个代理类及其对象
  *
@@ -57,9 +63,13 @@ class MyInvocationHandler implements InvocationHandler{
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
+        HumanUtil humanUtil = new HumanUtil();
+        humanUtil.method1();
+
         //即为代理类对象调用的方法，此方法也作为被代理类调用的方法
         //obj 被代理类的对象
-        return method.invoke(obj,args);
+        Object invoke = method.invoke(obj, args);
+        return invoke;
     }
 }
 
