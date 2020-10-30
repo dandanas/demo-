@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@MyAnnotation
 public class Person extends Creature<String> implements Comparable<String>,MyInterface{
 
     private String name;
     public Integer  age;
     int id;
 
+    @MyAnnotation
     public void show() {
         System.out.println("我是个废物");
     }

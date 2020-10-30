@@ -36,6 +36,7 @@ public class ReflectionTest {
         //通过反射创建Person类的对象
         Class clazz = Person.class;
         Constructor constructor = clazz.getConstructor(String.class, Integer.class);
+        Object o = clazz.newInstance();
         Person tom = (Person) constructor.newInstance("Tom", 12);
         System.out.println(tom);
 

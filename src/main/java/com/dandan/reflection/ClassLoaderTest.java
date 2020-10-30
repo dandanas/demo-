@@ -24,6 +24,10 @@ public class ClassLoaderTest {
         System.out.println(parent); //null 获取不到引导类加载器，引导类加载器主要加载Java的核心类库
     }
 
+    /**
+     * 用反射加载配置类
+     * @throws IOException
+     */
     @Test
     public void test2() throws IOException {
         Properties properties = new Properties();

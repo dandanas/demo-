@@ -17,5 +17,5 @@ import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnotation {
 
-    String value() default "j";
+    String value() default "c";
 }
