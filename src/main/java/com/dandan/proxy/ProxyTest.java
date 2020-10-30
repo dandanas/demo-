@@ -34,6 +34,10 @@ class HumanUtil{
     public void method1(){
         System.out.println("通用方法1");
     }
+
+    public void method2(){
+        System.out.println("通用方法2");
+    }
 }
 
 /**
@@ -46,6 +50,7 @@ class ProxyFactory {
     public static Object getProxyInstance(Object obj ){//obj:被代理类的对象，
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler();
         myInvocationHandler.bind(obj);
+        //第一个参数：被代理类的类加载器，第二个参数：被代理类实现的接口（因为代理类和被代理类要实现同样的接口）
         return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(),myInvocationHandler);
     }
 }
@@ -68,7 +73,10 @@ class MyInvocationHandler implements InvocationHandler{
 
         //即为代理类对象调用的方法，此方法也作为被代理类调用的方法
         //obj 被代理类的对象
+        //invoke 该方法的返回值
         Object invoke = method.invoke(obj, args);
+
+        humanUtil.method2();
         return invoke;
     }
 }
