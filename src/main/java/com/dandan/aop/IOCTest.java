@@ -1,7 +1,5 @@
-package com.dandan.demo;
+package com.dandan.aop;
 
-import com.dandan.aop.MathCalculator;
-import com.dandan.config.MainConfigOfAOP;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,6 +13,6 @@ public class IOCTest {
     public void test() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfigOfAOP.class);
         MathCalculator mathCalculator = applicationContext.getBean(MathCalculator.class);
-        mathCalculator.div(1,0);
+        mathCalculator.div(1,1);
     }
 }

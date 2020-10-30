@@ -1,4 +1,4 @@
-package com.dandan.config;
+package com.dandan.aop;
 
 import com.dandan.aop.LogAspect;
 import com.dandan.aop.MathCalculator;
