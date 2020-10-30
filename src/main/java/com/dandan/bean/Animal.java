@@ -10,16 +10,26 @@ import lombok.Data;
 @Data
 public class Animal {
 
-    private String type;
+    public String type;
 
     private String name;
 
-    private Integer age;
+    public Integer age;
+
+    public int number;
+
+    public Animal(){
+    }
 
     public Animal(String type, String name, Integer age){
         this.type = type;
         this.name = name;
         this.age = age;
+    }
+
+    public void Test(){
+        System.out.println("Test");
+        System.out.println("this method has been used");
     }
 
     @Override

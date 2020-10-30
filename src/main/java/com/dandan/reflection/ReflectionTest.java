@@ -111,7 +111,7 @@ public class ReflectionTest {
         Class<int[]> aClass1 = int[].class;
         Class<Comparable> comparableClass = Comparable.class;
 
-        //只要数组的元素类型和维度一样，就是一个class 、
+        //只要数组的元素类型和维度一样，就是一个class
         int[] a = new int[10];
         int[] b = new int[20];
         Class<? extends int[]> aClass2 = a.getClass();
