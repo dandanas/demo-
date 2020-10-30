@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @date：2020/10/27
  * @author：suchao
  */
-public class IOCTest {
+public class  IOCTest {
 
     @Test
     public void test() {
