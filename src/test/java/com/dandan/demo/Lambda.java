@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @Author: dandan
@@ -48,5 +49,21 @@ public class Lambda {
             return new Cat(animal.getType(), animal.getName(), animal.getAge(), animal.getNumber());
         };
         System.out.println("Function : " + catFunction.apply(animals.get(0)).toString());
+
+        //静态方法引用
+        Consumer<String> consumerStatic = Cat::staticName;
+        consumerStatic.accept("dandan");
+
+        Supplier<Cat> catSupplier = () -> new Cat("cat", "miao", 12, 21);
+        System.out.println(catSupplier.get());
+
+        //构造方法引用
+        Supplier<Cat> catNewSupplier = Cat::new;
+        System.out.println(catNewSupplier.get());
+
+        Cat cat = new Cat("cat", "miao", 12, 12);
+        //实例方法引用
+        Consumer<String> consumer = cat::getCatName;
+        consumer.accept("dandna");
     }
 }

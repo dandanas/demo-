@@ -1,10 +1,8 @@
 package com.dandan.bean;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.logging.log4j.util.Strings;
 
 /**
  * @Author: dandan
@@ -23,6 +21,15 @@ public class Cat extends Animal{
     public Cat(String type, String name, Integer age, Integer legs){
         super(type, name, age);
         this.legs = legs;
+    }
+
+    public void getCatName(String name){
+        String newName = name + " getName";
+        System.out.println(newName);
+    }
+
+    public static void staticName(String name){
+        System.out.println(name + " static dandan");
     }
 
     @Override
