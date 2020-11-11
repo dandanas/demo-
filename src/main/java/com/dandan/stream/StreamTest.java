@@ -18,12 +18,15 @@ public class StreamTest {
 //            doPrint(integer);
 //        });
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>(5);
         list.add("haha");
         list.add("haha");
         list.add("heihei");
         list.add("huohuo");
         list.add("houhou");
+        list.add("a");
+        System.out.println(list);
+
 
         List<Integer> list4 = Arrays.asList(1, 2, 3,4);
         //reduce()接收两个参数，第一个是开始值，后面是一个函数表示累计

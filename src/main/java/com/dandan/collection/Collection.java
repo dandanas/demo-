@@ -1,4 +1,4 @@
-package com.dandan;
+package com.dandan.collection;
 
 import java.util.*;
 

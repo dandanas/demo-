@@ -19,8 +19,9 @@ public class OtherTest {
         for (Constructor constructor : constructors){
             System.out.println(constructor);
         }
+        System.out.println("hhhh");
 
-        //当前运行时类所有的的public的构造方法
+        //当前运行时类所有的的构造方法
         Constructor<?>[] declaredConstructors = personClass.getDeclaredConstructors();
         for (Constructor constructor : declaredConstructors){
             System.out.println(constructor);

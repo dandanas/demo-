@@ -1,6 +1,4 @@
-package com.dandan.Thread.ThreadPool;
-
-import org.junit.Test;
+package com.dandan.Thread.ThreadPool.EasyCodingDemo;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,10 +33,15 @@ public class UserThreadFactory implements ThreadFactory {
 class Task implements Runnable{
     private final AtomicLong count = new AtomicLong(0L);
 
+    
+
     @Override
     public void run() {
         System.out.println("running_"+count.getAndIncrement());
     }
 }
+
+
+
 
 

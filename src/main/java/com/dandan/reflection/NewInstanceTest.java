@@ -66,6 +66,7 @@ public class NewInstanceTest {
      */
     public Object getInstance(String classPath) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> aClass = Class.forName(classPath);
-        return aClass.newInstance();
+        Class<?> aClass1 = aClass.newInstance().getClass();
+        return aClass1;
     }
 }

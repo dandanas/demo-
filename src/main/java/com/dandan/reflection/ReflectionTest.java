@@ -87,10 +87,11 @@ public class ReflectionTest {
 
         //通过运行时类的对象，最常用
         Person person = new Person();
+        Class<? extends Person> aClass2 = person.getClass();
         System.out.println(person.getClass());
 
         //调用Class的静态方法
-        Class<?> aClass = Class.forName("com.dandan.reflection.Person");
+        Class<Person> aClass = (Class<Person>) Class.forName("com.dandan.reflection.Person");
         System.out.println(aClass);
 
         //用类加载器
