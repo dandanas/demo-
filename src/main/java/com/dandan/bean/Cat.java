@@ -23,6 +23,10 @@ public class Cat extends Animal{
         this.legs = legs;
     }
 
+    public static void catTest(){
+        catTest();
+    }
+
     public void getCatName(String name){
         String newName = name + " getName";
         System.out.println(newName);
