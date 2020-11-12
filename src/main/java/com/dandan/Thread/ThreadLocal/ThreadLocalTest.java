@@ -1,7 +1,8 @@
 package com.dandan.Thread.ThreadLocal;
 
-import org.assertj.core.util.Lists;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,25 +10,30 @@ import java.util.List;
  * @author：suchao
  */
 public class ThreadLocalTest {
+    private List<String> messages = new ArrayList<>();
+
+    //采用Lambda方式传入实现了 Supplier 函数接口的参数
+    public static final ThreadLocal<ThreadLocalTest> holder = ThreadLocal.withInitial(ThreadLocalTest::new);
+
+    //public static final ThreadLocal<ThreadLocalTest> holder=new ThreadLocal<>();
+
+
+    public static void add(String message) {
+        holder.get().messages.add(message);
+    }
+
+    public static List<String> clear() {
+        List<String> messages = holder.get().messages;
+        holder.remove();
+
+        System.out.println("size: " + holder.get().messages.size());
+        return messages;
+    }
 
     public static void main(String[] args) {
-        final ThreadLocal threadLocal = new ThreadLocal();
-        threadLocal.set("hello");
-        System.out.println("main thread:" + threadLocal.get());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                threadLocal.set("world");
-                System.out.println("new Thread1:" + threadLocal.get());
-            }
-        }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                threadLocal.set("!!!");
-                System.out.println("new Thread2:" + threadLocal.get());
-            }
-        }).start();
-
+        ThreadLocalTest.add("一枝花算不算浪漫");
+        System.out.println(holder.get().messages);
+        ThreadLocalTest.clear();
     }
 }
+

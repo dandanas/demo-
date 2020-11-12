@@ -41,12 +41,7 @@ public class lambdaTest {
     @Test
     public void test3(){
         List<String> list = Arrays.asList("aaa1","bbb1","ccc");
-        List<String> filterString = filterString(list, new Predicate<String>() {
-            @Override
-            public boolean test(String s) {
-                return s.contains("1");
-            }
-        });
+        List<String> filterString = filterString(list, s -> s.contains("1"));
 
         System.out.println(filterString);
 

@@ -38,6 +38,7 @@ public class ThreadPoolExecutorDemo {
         }
         //终止线程池
         executor.shutdown();
+        //这行代码可以类比一下自旋锁
         while (!executor.isTerminated()) {
         }
         System.out.println("Finished all threads");
