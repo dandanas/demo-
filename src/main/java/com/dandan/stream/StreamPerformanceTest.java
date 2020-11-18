@@ -28,8 +28,7 @@ public class StreamPerformanceTest {
         arrayList
                 .stream()
                 .filter((s) -> s.startsWith("1"))
-                .forEach(System.out::println);//aaa2 aaa1
-
+                .forEach(System.out::println);//
         long end1 = System.currentTimeMillis();
         System.out.println("StreamIterator：" + (end1 - start1) + " ms");
 

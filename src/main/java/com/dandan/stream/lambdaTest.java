@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Stream;
 
 /**
  * @date：2020/10/28
@@ -15,7 +16,8 @@ import java.util.function.*;
  * 函数型接口 Function<T,R> R apply(T t)
  * 断定型接口 Predicate<T> boolean test(T t)
  */
-public class lambdaTest {
+public class lambdaTest{
+
 
     @Test
     public void test1(){
@@ -60,11 +62,14 @@ public class lambdaTest {
 
     @Test
     public void test4(){
-        List<String> list = Arrays.asList("aaa1","bbb1","ccc");
-        //filterString(list, s -> {s.contains("1")});
-        List<String> filterString = filterString(list, s -> s.contains("1"));
+        List<String> list = Arrays.asList("aaa1","aaa2","bbb1","ccc");
 
-        System.out.println(filterString);
+        // 测试 Sort (排序)
+        list.stream()
+                .sorted()
+                .filter((s) -> s.startsWith("a"))
+                .forEach(System.out::println);// aaa1 aaa2
+
 
     }
 
@@ -101,10 +106,47 @@ public class lambdaTest {
 
     @Test
     public void test(){
-        List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+        List<String> stringList = Arrays.asList("peter", "anna", "mike", "xenia");
 
-        Collections.sort(names, Comparator.reverseOrder());
-        System.out.println(names);
+        // 测试 Map 操作
+        stringList
+                .stream()
+                .map(String::toUpperCase)
+                .sorted()
+                .forEach(System.out::println);
+
+
+    }
+    @Test
+    public void test9(){
+        List<String> stringList = Arrays.asList("peter", "anna", "mike", "xenia");
+
+        //测试 Reduce (规约)操作
+
+        Optional<String> reduced = stringList
+                .stream()
+                .sorted()
+                .reduce((s1, s2) -> s1 + "#" + s2);
+
+        reduced.ifPresent(System.out::println);
+
+        // 字符串连接，concat = "ABCD"
+        String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat);
+        System.out.println(concat);
+        // 求最小值，minValue = -3.0
+        double minValue = Stream.of(-1.5, 1.0, -3.0, -2.0).reduce(Double.MAX_VALUE, Double::min);
+        System.out.println(minValue);
+        // 求和，sumValue = 10, 有起始值
+        int sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
+        System.out.println(sumValue);
+        // 求和，sumValue = 10, 无起始值
+        sumValue = Stream.of(1, 2, 3, 4).reduce(Integer::sum).get();
+        System.out.println(sumValue);
+        // 过滤，字符串连接，concat = "ace"
+        concat = Stream.of("a", "B", "c", "D", "e", "F").
+                filter(x -> x.compareTo("Z") > 0).
+                reduce("", String::concat);
+        System.out.println(concat);
 
     }
 
