@@ -2,9 +2,7 @@ package com.dandan.stream;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.*;
 
 /**
@@ -87,7 +85,7 @@ public class lambdaTest {
     public void test6(){
 
         //lambda表达式实现
-        Function<Integer,String[]> function = length -> new String[length];
+        Function<Integer,String[]> function = (length) -> new String[length];
 
         String[] apply = function.apply(10);
 
@@ -95,10 +93,20 @@ public class lambdaTest {
 
         //数组引用
         Function<Integer,String[]> function1 =String[] :: new;
-        String[] apply1 = function.apply(5);
+        String[] apply1 = function1.apply(5);
 
         System.out.println(Arrays.toString(apply1));
 
     }
+
+    @Test
+    public void test(){
+        List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+
+        Collections.sort(names, Comparator.reverseOrder());
+        System.out.println(names);
+
+    }
+
 
 }

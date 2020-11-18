@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class Animal {
 
+
     public String type;
 
     private String name;
