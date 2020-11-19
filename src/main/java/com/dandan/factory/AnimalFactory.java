@@ -9,7 +9,7 @@ public class AnimalFactory {
     public static Animal produceAnimal(String type){
         Animal animal = null;
         if(type.equals("cat")){
-            return new Cat();
+            return new Cat(10);
         }else {
             return new Dog();
         }

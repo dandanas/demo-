@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// Student实现Comparable接口,默认按照id升序排列
 public class Student {
 
     private int id;
