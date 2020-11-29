@@ -23,16 +23,13 @@ public class ThreadTest  {
     public static void main(String[] args) {
 
         //匿名类
-        new Thread(){
-            @Override
-            public void run(){for (int i = 0;i<1000;i++){
-                if (i%2 == 0){
-                    System.out.println(Thread.currentThread().getName());
-                }
+        new Thread(() -> {for (int i = 0; i<1000; i++){
+            if (i%2 == 0){
+                System.out.println(Thread.currentThread().getName());
             }
+        }
 
-            }
-        }.start();
+        }).start();
 
 
         MyThread myThread = new MyThread();

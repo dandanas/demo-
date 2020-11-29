@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
 /**
  * @date：2020/11/19
@@ -19,6 +18,10 @@ public class EqualsObject {
     private String name;
 
 
+    @Override
+    public int hashCode() {
+        return id+name.hashCode();
+    }
 
     @Override
     public boolean equals(Object obj) {

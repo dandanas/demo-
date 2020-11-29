@@ -14,29 +14,19 @@ import java.util.stream.Collectors;
 public class Generic {
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//      List<Integer> integerList = new ArrayList<>();
-//      List<String> stringList = new ArrayList<>();
-//        System.out.println(integerList.getClass().equals(stringList.getClass())); //true
-//
-//        System.out.println(integerList.getClass());
-//        integerList.getClass().getMethod("add", Object.class).invoke(integerList,"字符串");
-//        System.out.println(integerList.get(0)); //字符串
-//
+      List<Integer> integerList = new ArrayList<>();
+      List<String> stringList = new ArrayList<>();
+        System.out.println(integerList.getClass().equals(stringList.getClass())); //true
 
-
-        new BigDecimal(0).multiply(new BigDecimal("0"))
-                .divide(new BigDecimal("30"), 0, BigDecimal.ROUND_UP);
-
+        System.out.println(integerList.getClass());
+        integerList.getClass().getMethod("add", Object.class).invoke(integerList,"字符串");
+        System.out.println(integerList.get(0)); //字符串
 
 
     }
-    private void get(){
-        set();
-    }
 
-    private void set(){
 
-    }
+
 
 
 

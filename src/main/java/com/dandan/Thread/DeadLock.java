@@ -1,5 +1,7 @@
 package com.dandan.Thread;
 
+import java.beans.Transient;
+
 /**
  * 演示死锁的过程
  *
