@@ -59,6 +59,7 @@ public class LogAspect {
         //利用反射调用目标方法即可,就是method.invoke()
         Object proceed = null;
         try {
+            //利用pdp.getSignature().getName()
             System.out.println(""+pdp.getSignature().getName()+"除法运行。。参数列表{"+ Arrays.asList(args)+"} ");
             proceed = pdp.proceed(args);
             System.out.println(pdp.getSignature().getName()+"除法正常返回。。。运行结果：{"+proceed+"} ");

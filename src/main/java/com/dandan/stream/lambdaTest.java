@@ -1,5 +1,6 @@
 package com.dandan.stream;
 
+import com.dandan.logAop.TimeConsuming;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -118,9 +119,9 @@ public class lambdaTest{
 
     }
     @Test
+    @TimeConsuming(fullMethodName = true)
     public void test9(){
         List<String> stringList = Arrays.asList("peter", "anna", "mike", "xenia");
-
         //测试 Reduce (规约)操作
 
         Optional<String> reduced = stringList

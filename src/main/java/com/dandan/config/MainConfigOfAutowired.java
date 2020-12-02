@@ -1,11 +1,10 @@
 package com.dandan.config;
 
 import com.dandan.controller.BookController;
+import com.dandan.logAop.TimeConsumingMonitor;
 import com.dandan.service.BookService;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 /**
  * @date：2020/10/26
@@ -32,8 +31,10 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan({"com.dandan.controller","com.dandan.service"})
+@ComponentScan({"com.dandan.controller","com.dandan.service","com.dandan.logAop"})
+@EnableAspectJAutoProxy
 public class MainConfigOfAutowired {
+
 
     @Test
     public void test01(){
@@ -46,7 +47,6 @@ public class MainConfigOfAutowired {
         System.out.println(service);
         applicationContexts.close();
     }
-
 
 
 

@@ -9,13 +9,4 @@ import java.util.List;
 @SpringBootTest
 class DemoApplicationTests {
 
-    @Test
-    void contextLoads() {
-
-        List<String> strings = new ArrayList<>();
-        strings.add("dandan");
-//        List<Object> objects = strings;
-//        System.out.println(objects);
-    }
-
 }

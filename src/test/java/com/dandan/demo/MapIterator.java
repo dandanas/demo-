@@ -1,7 +1,15 @@
 package com.dandan.demo;
 
+import com.dandan.DemoApplication;
+import com.dandan.logAop.TimeConsuming;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 
@@ -12,9 +20,15 @@ import static org.mockito.Mockito.*;
  * @author：suchao
  * 遍历类
  */
+@Component
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = DemoApplication.class)
 public class MapIterator {
 
+    private static final Logger log = LoggerFactory.getLogger(MapIterator.class);
+
     @Test
+    @TimeConsuming
     public void test() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("熊大", "棕色");
@@ -24,6 +38,7 @@ public class MapIterator {
             String mapValue = entry.getValue();
             System.out.println(mapKey + ":" + mapValue);
         }
+        log.info("I'm method annotated");
     }
 
     /**

@@ -1,6 +1,11 @@
 package com.dandan.controller;
 
+import com.dandan.logAop.TimeConsuming;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -12,8 +17,23 @@ import java.util.Date;
 @RestController
 public class WelcomeController {
 
-    @RequestMapping("/test")
-    public String welcome(){
-        return new Date().toString();
+    @Autowired
+    private TestAnnoation testAnnoation;
+
+    @RequestMapping(value = "/queryProvinceInfo")
+    public String queryProvinceInfo(@RequestParam(value = "provinceCode") String haha) {
+        //return testAnnoation.printDate();
+        return printDate();
     }
+
+
+    @TimeConsuming(fullMsg = true)
+    public String printDate(){
+        System.out.println(new Date().toString());
+        for (int i = 0; i <100 ; i++) {
+            System.out.println(i);
+        }
+        return "计算成功";
+    }
+
 }
