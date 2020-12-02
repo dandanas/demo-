@@ -12,6 +12,10 @@ public class  IOCTest {
     @Test
     public void test() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfigOfAOP.class);
+        String[] beanNamesForType = applicationContext.getBeanNamesForType(MathCalculator.class);
+        for (String d :beanNamesForType){
+            System.out.println( d);
+        }
         MathCalculator mathCalculator = applicationContext.getBean(MathCalculator.class);
         mathCalculator.div(1,1);
     }

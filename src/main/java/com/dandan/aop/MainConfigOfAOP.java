@@ -18,7 +18,7 @@ public class MainConfigOfAOP {
 
 //    //业务逻辑类
 //    @Bean
-//    public MathCalculator mathCalculator(){
+//    public MathCalculator mathCalculator01(){
 //        return new MathCalculator();
 //    }
 //

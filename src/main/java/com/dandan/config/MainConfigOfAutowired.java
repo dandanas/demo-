@@ -40,6 +40,8 @@ public class MainConfigOfAutowired {
         AnnotationConfigApplicationContext applicationContexts = new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
         BookController bean = applicationContexts.getBean(BookController.class);
         bean.print();
+       boolean b = applicationContexts.containsBean("bookService");
+        System.out.println(b);
         BookService service = applicationContexts.getBean(BookService.class);
         System.out.println(service);
         applicationContexts.close();

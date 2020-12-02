@@ -16,5 +16,4 @@ public class WelcomeController {
     public String welcome(){
         return new Date().toString();
     }
-    //你不对劲
 }

@@ -4,6 +4,7 @@ import com.dandan.reflection.Person;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.text.DecimalFormat;
 
 /**
  * @date：2020/10/29
@@ -27,5 +28,18 @@ public class OtherTest {
             System.out.println(constructor);
         }
 
+    }
+
+
+    @Test
+    public void test1(){
+        Integer allSiteNum = 99;
+        Integer num =19;
+        DecimalFormat df = new DecimalFormat("##%");
+        String percentInteger =df.format((float)num/(float)allSiteNum);
+        System.out.println("转换为float后的值："+percentInteger);
+        String percentFloat =df.format(num/allSiteNum);
+        System.out.println(num/allSiteNum);
+        System.out.println("没有A转换为float后的值："+percentFloat);
     }
 }
