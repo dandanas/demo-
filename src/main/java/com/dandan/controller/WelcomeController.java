@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -20,10 +21,13 @@ public class WelcomeController {
     @Autowired
     private TestAnnoation testAnnoation;
 
+    @Resource
+    private WelcomeController welcomeController;
+
     @RequestMapping(value = "/queryProvinceInfo")
     public String queryProvinceInfo(@RequestParam(value = "provinceCode") String haha) {
         //return testAnnoation.printDate();
-        return printDate();
+        return welcomeController.printDate();
     }
 
 
