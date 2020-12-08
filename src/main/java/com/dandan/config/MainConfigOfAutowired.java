@@ -1,8 +1,6 @@
 package com.dandan.config;
 
-import com.dandan.controller.BookController;
-import com.dandan.logAop.TimeConsumingMonitor;
-import com.dandan.service.BookService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.*;
 
@@ -36,17 +34,17 @@ import org.springframework.context.annotation.*;
 public class MainConfigOfAutowired {
 
 
-    @Test
-    public void test01(){
-        AnnotationConfigApplicationContext applicationContexts = new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
-        BookController bean = applicationContexts.getBean(BookController.class);
-        bean.print();
-       boolean b = applicationContexts.containsBean("bookService");
-        System.out.println(b);
-        BookService service = applicationContexts.getBean(BookService.class);
-        System.out.println(service);
-        applicationContexts.close();
-    }
+//    @Test
+//    public void test01(){
+//        AnnotationConfigApplicationContext applicationContexts = new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
+//        BookController bean = applicationContexts.getBean(BookController.class);
+//        bean.print();
+//       boolean b = applicationContexts.containsBean("bookService");
+//        System.out.println(b);
+//        BookService service = applicationContexts.getBean(BookService.class);
+//        System.out.println(service);
+//        applicationContexts.close();
+//    }
 
 
 
