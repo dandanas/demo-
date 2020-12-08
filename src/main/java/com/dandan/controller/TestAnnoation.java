@@ -13,7 +13,7 @@ import java.util.Date;
 public class TestAnnoation {
 
 
-    @TimeConsuming(fullMsg = true)
+    //@TimeConsuming(fullMsg = true, properties = )
     public String printDate(){
         System.out.println(new Date().toString());
         for (int i = 0; i <100 ; i++) {

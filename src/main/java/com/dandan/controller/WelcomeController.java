@@ -27,13 +27,13 @@ public class WelcomeController {
     @RequestMapping(value = "/queryProvinceInfo")
     public String queryProvinceInfo(@RequestParam(value = "provinceCode") String haha) {
         //return testAnnoation.printDate();
-        return welcomeController.printDate();
+        return welcomeController.printDate(haha);
     }
 
 
-    @TimeConsuming(fullMsg = true)
-    public String printDate(){
-        System.out.println(new Date().toString());
+    @TimeConsuming(fullMsg = true, properties = {"haha"})
+    public String printDate(String haha){
+        System.out.println(haha);
         for (int i = 0; i <100 ; i++) {
             System.out.println(i);
         }

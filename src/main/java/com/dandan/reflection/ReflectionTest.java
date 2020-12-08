@@ -89,7 +89,6 @@ public class ReflectionTest {
         Person person = new Person();
         Class<? extends Person> aClass2 = person.getClass();
         System.out.println(person.getClass());
-
         //调用Class的静态方法
         Class<Person> aClass = (Class<Person>) Class.forName("com.dandan.reflection.Person");
         System.out.println(aClass);

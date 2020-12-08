@@ -119,7 +119,7 @@ public class lambdaTest{
 
     }
     @Test
-    @TimeConsuming(fullMethodName = true)
+    //@TimeConsuming(fullMethodName = true)
     public void test9(){
         List<String> stringList = Arrays.asList("peter", "anna", "mike", "xenia");
         //测试 Reduce (规约)操作

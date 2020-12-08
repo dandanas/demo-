@@ -1,12 +1,18 @@
 package com.dandan.logAop;
 import com.alibaba.fastjson.JSON;
+import com.dandan.utils.ReflectionUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+
 /**
  * 使用切面记录每个接口调用的耗时
  * @author dadiyang
@@ -16,7 +22,6 @@ import org.springframework.stereotype.Component;
 public class TimeConsumingMonitor {
     private static final Logger log = LoggerFactory.getLogger(TimeConsumingMonitor.class);
     private static final int MAX_STRING_LENGTH = 128;
-
     /**
      * 拦截类上的 TimeConsuming 注解
      */
@@ -24,29 +29,29 @@ public class TimeConsumingMonitor {
     public Object cutClazz(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
         return logging(joinPoint, timeConsuming);
     }
-
     /**
      * 拦截方法上的 TimeConsuming 注解
      */
     @Around(value = "@annotation(timeConsuming)")
     public Object cutMethod(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
-        if (joinPoint.getSignature().getDeclaringType().isAnnotationPresent(timeConsuming.getClass())) {
+        boolean annotationPresent = joinPoint.getSignature().getDeclaringType().isAnnotationPresent(timeConsuming.getClass());
+        if (annotationPresent) {
             // 此方法仅拦截方法上的 TimeConsuming 注解
             return joinPoint.proceed(joinPoint.getArgs());
         }
         return logging(joinPoint, timeConsuming);
     }
-
     /**
      * 记录接口耗时和方法参数简单摘要
      */
     private Object logging(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
-        //根据条件获取日志实例 是否使用被注解方法所属的类对应的日志类进行日志输出
         Logger logger = getLogger(joinPoint, timeConsuming);
         try {
+            String[] properties = timeConsuming.properties();
+            Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+            String[] propertyValue = getPropertyValue(properties, joinPoint.getArgs(), method);
+            printLog(timeConsuming.logLevel(), logger,"获取到的属性为{}",propertyValue[0]);
             long start = System.currentTimeMillis();
-            //利用反射调用目标方法即可,也就是method.invoke()
-            //joinPoint.getArgs()获取连接点方法运行时的入参列表
             Object result = joinPoint.proceed(joinPoint.getArgs());
             // 如果获取不到注解或者设置的日志级别与当前logger的级别不匹配，则直接返回结果
             if (timeConsuming == null || !needPrint(timeConsuming.logLevel(), logger)) {
@@ -58,11 +63,9 @@ public class TimeConsumingMonitor {
                 argsString = summary(joinPoint.getArgs(), timeConsuming.fullMsg() || timeConsuming.fullArg());
             }
             String resultString = "";
-            //如果返回值不为空，将对象序列化以后取摘要
             if (!(result instanceof Void)) {
                 resultString = summary(result, timeConsuming.fullMsg() || timeConsuming.fullReturnVal());
             }
-            //获取连接点的方法名
             String methodName = getMethodName(joinPoint, timeConsuming);
             printLog(timeConsuming.logLevel(), logger, "调用方法{}, 参数: {}, 结果: {}, 执行耗时: {}", methodName, argsString, resultString, time);
             return result;
@@ -77,10 +80,8 @@ public class TimeConsumingMonitor {
             throw throwable;
         }
     }
-
     /**
      * 根据条件获取日志实例
-     *
      * @param joinPoint     连接点
      * @param timeConsuming 注解
      * @return 日志实例
@@ -88,10 +89,8 @@ public class TimeConsumingMonitor {
     private Logger getLogger(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) {
         return timeConsuming != null && timeConsuming.useSourceClassLog() ? LoggerFactory.getLogger(joinPoint.getSignature().getDeclaringType()) : log;
     }
-
     /**
      * 根据给你写的日志级别和日志类实例打印日志
-     *
      * @param level  日志级别
      * @param logger 日志类
      * @param format 格式
@@ -118,10 +117,8 @@ public class TimeConsumingMonitor {
                 logger.info(format, args);
         }
     }
-
     /**
      * 设置的日志级别与给定的logger级别是否一致
-     *
      * @param level  注解中设置的日志级别
      * @param logger 日志类
      * @return 是否需要打印日志
@@ -133,22 +130,17 @@ public class TimeConsumingMonitor {
                 || (level == 3 && logger.isWarnEnabled())
                 || (level == 4 && logger.isErrorEnabled());
     }
-
     /**
      * @param joinPoint     连接点
      * @param timeConsuming 注解
      * @return 方法名
      */
     private String getMethodName(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) {
-        //获取方法名
         Signature signature = joinPoint.getSignature();
-        //打印完整的方法名、方法参数和返回值，打印完整的方法名称（包括全类名和方法的全类名）
         return timeConsuming.fullMsg() || timeConsuming.fullMethodName() ? signature.toLongString() : signature.toShortString();
     }
-
     /**
      * 将对象序列化后取摘要
-     *
      * @param obj     需要被摘要的类
      * @param fullMsg 是否使用全信息
      * @return 摘要
@@ -165,4 +157,17 @@ public class TimeConsumingMonitor {
         return argsString;
     }
 
+    /**
+     * 获取参数值
+     */
+    public String[] getPropertyValue(String[] properties,Object[] args , Method method) {
+        for (int i = 0; i < properties.length; i++) {
+            Object argValue = ReflectionUtil.getArgValue(args, method, properties[i]);
+            properties[i] = (String) argValue;
+        }
+        return properties;
+    }
+
+
 }
+
