@@ -15,6 +15,7 @@ public class ClassLoaderTest {
     @Test
     public void test1(){
         ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
+        System.out.println(ClassLoader.getSystemClassLoader());
         System.out.println(classLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2 由系统类加载器加载自定义的类
 
         ClassLoader classLoader1 = classLoader.getParent();

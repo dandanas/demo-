@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,OtherUserService{
 
     @Override
     public User queryUserById(Long id) {
@@ -22,5 +22,10 @@ public class UserServiceImpl implements UserService{
             int i = 1 / 0;
             return null;
         }
+    }
+
+    @Override
+    public void otherUser() {
+        System.out.println("我是其他用户");
     }
 }

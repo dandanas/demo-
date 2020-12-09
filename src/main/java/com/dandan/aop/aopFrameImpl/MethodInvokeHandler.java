@@ -1,5 +1,6 @@
 package com.dandan.aop.aopFrameImpl;
 
+import com.dandan.service.OtherUserService;
 import com.dandan.service.UserService;
 import com.dandan.service.UserServiceImpl;
 import org.springframework.cglib.proxy.Enhancer;
@@ -9,6 +10,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
 
 /**
@@ -131,8 +133,14 @@ class MyMethodCallBack implements MethodInterceptor {
     public  Object getJDKProxyInstance(Object object) {
         MethodInvokeHandler myInvocationHandler = new MethodInvokeHandler(advisor,object);
 
+        object.getClass().getClassLoader();
+        Thread.currentThread().getContextClassLoader();
+
         //第一个参数：被代理类的类加载器，第二个参数：被代理类实现的接口（因为代理类和被代理类要实现同样的接口）
-        return Proxy.newProxyInstance(object.getClass().getClassLoader(), object.getClass().getInterfaces(), myInvocationHandler);
+        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+                object.getClass().getInterfaces() ,myInvocationHandler);
+
+
     }
 
     public Object getCglibInstance(Object object){
@@ -140,7 +148,6 @@ class MyMethodCallBack implements MethodInterceptor {
         Enhancer enhancer = new Enhancer();
         // 设置目标对象为父类
         enhancer.setSuperclass(object.getClass());
-
         //设置回调方法
         enhancer.setCallback( new MyMethodCallBack(advisor));
 
@@ -149,24 +156,54 @@ class MyMethodCallBack implements MethodInterceptor {
     }
 
     public static Object getProxyObject(Object object,Advisor advisor){
+        if (Objects.isNull(object)){
+            throw new IllegalStateException("目标对象不能为空");
+        }
         ProxyFactory p =new ProxyFactory(advisor);
         if (object.getClass().getInterfaces().length>0){
+            System.out.println("调用的是JDK动态代理");
            return p.getJDKProxyInstance(object);
         }else {
+            System.out.println("调用的是cglib动态代理");
             return p.getCglibInstance(object);
         }
     }
 
 }
 
+class OtherAdvisor implements Advisor{
+
+    @Override
+    public void before() {
+        System.out.println("我是用户自定义的before方法");
+    }
+
+    @Override
+    public void afterReturn() {
+        System.out.println("我是用户自定义的afterReturn方法");
+    }
+
+    @Override
+    public void afterThrowing() {
+        System.out.println("我是用户自定义的afterThrowing方法");
+    }
+
+    @Override
+    public void after() {
+        System.out.println("我是用户自定义的after方法");
+    }
+}
+
 class test{
     public static void main(String[] args) {
-        UserServiceImpl userService = new UserServiceImpl();
-        AdvisorImpl advisor = new AdvisorImpl();
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
+        //AdvisorImpl advisor = new AdvisorImpl();
 
         //获取代理类的对象
-        UserService proxyObject = (UserService)ProxyFactory.getProxyObject(userService, advisor);
-        proxyObject.queryUserById(10L);
+        OtherUserService proxyObject = (OtherUserService)ProxyFactory.getProxyObject(userServiceImpl, new OtherAdvisor());
+        proxyObject.otherUser();
+
+
     }
 }
 
