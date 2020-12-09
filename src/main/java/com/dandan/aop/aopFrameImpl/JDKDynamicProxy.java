@@ -43,18 +43,17 @@ class MyInvocationHandler implements InvocationHandler {
     //当调用代理对象的方法时，会执行如下invoke方法
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        UserUtil userUtil = new UserUtil();
         try {
-            userUtil.before();
+            LogUtil.before();
 
             method.invoke(obj, args);
 
-            userUtil.afterReturn();
+            LogUtil.afterReturn();
         } catch (Exception e) {
             e.printStackTrace();
-            userUtil.e();
+            LogUtil.e();
         } finally {
-            userUtil.last();
+            LogUtil.last();
         }
 
         return null;

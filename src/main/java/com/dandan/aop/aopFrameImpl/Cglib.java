@@ -33,21 +33,21 @@ public class Cglib {
 
 //定义方法拦截器
 class MethodCallBack implements MethodInterceptor {
-    UserUtil userUtil = new UserUtil();
+
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        userUtil.before();
+        LogUtil.before();
         try {
             methodProxy.invokeSuper(o, objects);
-            userUtil.afterReturn();
+            LogUtil.afterReturn();
 
         } catch (Exception e) {
             e.printStackTrace();
-            userUtil.e();
+            LogUtil.e();
 
         } finally {
-            userUtil.last();
+            LogUtil.last();
         }
         return null;
     }

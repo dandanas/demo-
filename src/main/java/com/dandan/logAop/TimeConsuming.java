@@ -49,6 +49,4 @@ public @interface TimeConsuming {
      * @return 是否使用被注解方法所属的类对应的日志类进行日志输出
      */
     boolean useSourceClassLog() default false;
-
-    String[] properties() default "null";
 }

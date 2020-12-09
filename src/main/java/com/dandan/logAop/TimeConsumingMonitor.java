@@ -47,10 +47,10 @@ public class TimeConsumingMonitor {
     private Object logging(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
         Logger logger = getLogger(joinPoint, timeConsuming);
         try {
-            String[] properties = timeConsuming.properties();
+            //String[] properties = timeConsuming.properties();
             Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-            String[] propertyValue = getPropertyValue(properties, joinPoint.getArgs(), method);
-            printLog(timeConsuming.logLevel(), logger,"获取到的属性为{}",propertyValue[0]);
+            //String[] propertyValue = getPropertyValue(properties, joinPoint.getArgs(), method);
+            //printLog(timeConsuming.logLevel(), logger,"获取到的属性为{}",propertyValue[0]);
             long start = System.currentTimeMillis();
             Object result = joinPoint.proceed(joinPoint.getArgs());
             // 如果获取不到注解或者设置的日志级别与当前logger的级别不匹配，则直接返回结果
