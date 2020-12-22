@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,33 +23,41 @@ import java.lang.reflect.Method;
 public class TimeConsumingMonitor {
     private static final Logger log = LoggerFactory.getLogger(TimeConsumingMonitor.class);
     private static final int MAX_STRING_LENGTH = 128;
-    /**
-     * 拦截类上的 TimeConsuming 注解
-     */
-    @Around(value = "@within(timeConsuming)")
-    public Object cutClazz(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
-        return logging(joinPoint, timeConsuming);
+
+
+    @Pointcut("@annotation(com.dandan.logAop.TimeConsuming)")
+    public void pointcut() {
     }
+//    /**
+//     * 拦截类上的 TimeConsuming 注解
+//     */
+//    @Around(value = "@within(timeConsuming)")
+//    public Object cutClazz(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
+//        return logging(joinPoint, timeConsuming);
+//    }
     /**
      * 拦截方法上的 TimeConsuming 注解
      */
-    @Around(value = "@annotation(timeConsuming)")
-    public Object cutMethod(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
-        boolean annotationPresent = joinPoint.getSignature().getDeclaringType().isAnnotationPresent(timeConsuming.getClass());
-        if (annotationPresent) {
-            // 此方法仅拦截方法上的 TimeConsuming 注解
-            return joinPoint.proceed(joinPoint.getArgs());
-        }
-        return logging(joinPoint, timeConsuming);
-    }
+//    @Around(value = "@annotation(timeConsuming)")
+//    public Object cutMethod(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
+//        boolean annotationPresent = joinPoint.getSignature().getDeclaringType().isAnnotationPresent(timeConsuming.getClass());
+//        if (annotationPresent) {
+//            // 此方法仅拦截方法上的 TimeConsuming 注解
+//            return joinPoint.proceed(joinPoint.getArgs());
+//        }
+//        return logging(joinPoint, timeConsuming);
+//    }
     /**
      * 记录接口耗时和方法参数简单摘要
      */
-    private Object logging(ProceedingJoinPoint joinPoint, TimeConsuming timeConsuming) throws Throwable {
+    @Around("pointcut()")
+    private Object logging(ProceedingJoinPoint joinPoint) throws Throwable {
+        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        TimeConsuming timeConsuming = method.getAnnotation(TimeConsuming.class);
         Logger logger = getLogger(joinPoint, timeConsuming);
         try {
             //String[] properties = timeConsuming.properties();
-            Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+            //Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
             //String[] propertyValue = getPropertyValue(properties, joinPoint.getArgs(), method);
             //printLog(timeConsuming.logLevel(), logger,"获取到的属性为{}",propertyValue[0]);
             long start = System.currentTimeMillis();
